@@ -39,23 +39,18 @@ Verify that Ubuntu has permission to run Docker by executing docker images comma
 *Dockerfile:
 
 Create a Dockerfile with the following content:
+
 FROM python:3.9
-
 WORKDIR /app/backend
-
 COPY requirements.txt /app/backend
-
 RUN pip install -r requirements.txt
-
 COPY . /app/backend
-
 EXPOSE 8000
-
 CMD python /app/backend/manage.py
+
 *Build the docker image by running following command :
 
 docker build -t my-note-app .
-
 docker images
 
 Install Java JDK and Jenkins from following link:
@@ -65,8 +60,8 @@ https://www.jenkins.io/doc/book/installing/linux
 *Grant Jenkins access to build and run Docker images:
 
 sudo usermod -aG docker jenkins
-
 sudo reboot
+
 Access Jenkins by entering your EC2 instance's public IP followed by port 8080 in your browser. Obtain the initialAdminPassword by running:
 
 cat /var/lib/jenkins/secrets/initialAdminPassword
@@ -84,8 +79,8 @@ Click on "New Item" and name it "my-note-app-cicd-pipeline".
 https://github.com/Mansi4321/django-notes-app.git
 
 Set the name to "note-app".
-Enable the "Build Triggers" option by ticking the box next to "GitHub hook trigger for GITScm pooling".
 
+Enable the "Build Triggers" option by ticking the box next to "GitHub hook trigger for GITScm pooling".
 In the "Pipeline" section, choose "Pipeline Script" and add the following script:
 
 pipeline {
@@ -157,15 +152,13 @@ sh "docker-compose down && docker-compose up -d "
 1.Add DockerHub credentials in the global credentials section with the ID as "dockerHub" along with the username and password.
 
 2.Create a Docker Compose file to enhance the deployment of Docker containers:
+
 version : "3.3"
-
 services :
-
 web :
-
 image : mansi4321/my-note-app:latest
-
 ports : - "8000:8000"
+
 Install Docker Compose before running the pipeline.
 
 Once everything is set up, you can manually trigger the pipeline by clicking the build button in the Jenkins interface.
